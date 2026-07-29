@@ -51,12 +51,9 @@
     <div class="left-fold"></div>
     <div class="right-fold"></div>
     <div class="front-fold embossed"></div>
-    <button class="seal" id="seal" aria-label="Tap to open invitation">
-      <span class="seal-monogram">S&S</span>
-      <span class="seal-action">Tap to open</span>
-    </button>
+    <button class="seal" id="seal" aria-label="Tap to open invitation"><img class="wax-seal-reference" src="wax-seal-only.png" alt="Shifana and Sabu wedding seal"><span class="wax-tap-label">Tap to Open</span></button>
   </div>
-  <p class="tap-hint">TAP THE WAX SEAL TO OPEN</p>
+  <p class="tap-hint">A LOVE STORY AWAITS · TAP TO OPEN</p>
 </section>
 
 <header class="hero">
@@ -70,9 +67,14 @@
 
 <section class="scratch-section">
   <div class="reveal"><p class="script">Save the date</p><h2>A LITTLE SURPRISE</h2><p>Scratch below to reveal our wedding date.</p></div>
-  <div class="scratch-wrap" id="scratchWrap">
+  <div class="scratch-wrap heart-scratch" id="scratchWrap">
     <div class="secret"><small>OUR WEDDING DAY</small><strong>27</strong><span>DECEMBER 2026</span><em>Sunday</em></div>
     <canvas id="scratch"></canvas>
+    <svg class="heart-outline" viewBox="0 0 360 310" aria-hidden="true">
+      <path d="M180 292C151 257 35 181 35 102C35 47 78 24 118 29C147 33 168 51 180 70C192 51 213 33 242 29C282 24 325 47 325 102C325 181 209 257 180 292Z"/>
+      <path class="mini-heart" d="M285 93c-12-18-40-8-40 14 0 18 27 35 40 49 13-14 40-31 40-49 0-22-28-32-40-14Z"/>
+    </svg>
+    <div class="scratch-mark"><b>S &amp; S</b><span>scratch to reveal</span></div>
   </div>
   <small class="scratch-note">SCRATCH WITH YOUR FINGER</small>
 </section>
@@ -129,13 +131,38 @@
   </div>
 </section>
 
-<section class="gallery paper"><div class="section-head reveal"><p class="script">Our story</p><h2>MOMENTS WE LOVE</h2></div>
-<div class="grid reveal"><div class="photo story-photo story-1 tall" role="img" aria-label="Shifana and Sabu wedding portrait"></div><div class="photo story-photo story-2" role="img" aria-label="Shifana and Sabu together"></div><div class="photo story-photo story-3" role="img" aria-label="Shifana and Sabu celebration"></div></div></section>
+<section class="gallery paper">
+  <div class="collection-intro reveal">
+    <span class="collection-rule"></span>
+    <p class="collection-kicker">OUR COLLECTION</p>
+    <h2 class="collection-title">Our Story <em>in Frames</em></h2>
+    <p class="collection-copy">Little moments, beautiful memories, and the story that brought us here.</p>
+  </div>
+  <div class="photo-rail reveal" aria-label="Our photo collection">
+    <figure class="story-frame"><img src="photo-01.jpeg" alt="Shifana and Sabu together" loading="lazy"></figure>
+    <figure class="story-frame"><img src="photo-02.jpeg" alt="A special moment together" loading="lazy"></figure>
+    <figure class="story-frame"><img src="photo-03.jpeg" alt="Shifana and Sabu celebration" loading="lazy"></figure>
+  </div>
+  <p class="swipe-hint">SWIPE TO EXPLORE <span>→</span></p>
+</section>
 
-<section class="rsvp">
-  <div class="photo rsvp-bg" role="img" aria-label="Shifana and Sabu"></div><div class="shade"></div>
-  <div class="card reveal"><p class="script light">Your ticket to love</p><h2>RSVP</h2><p>We would be delighted to celebrate with you.</p>
-  <form id="form"><input required placeholder="Your name"><select><option>Yes, I will be there</option><option>Unfortunately, I cannot attend</option></select><input type="number" min="1" max="10" value="1" aria-label="Number of guests"><textarea placeholder="Message for Shifana & Sabu"></textarea><button>CONFIRM ATTENDANCE</button><small id="thanks"></small></form></div>
+<section class="rsvp paper">
+  <div class="rsvp-inner reveal">
+    <span class="rsvp-ornament">◇</span>
+    <p class="rsvp-script">will you join us?</p>
+    <p class="rsvp-copy">Kindly let us know if you can celebrate with us,<br>so we can save you a spot.</p>
+    <form id="form" class="rsvp-form">
+      <input required placeholder="Your name" aria-label="Your name">
+      <select aria-label="Attendance">
+        <option>Yes, I will be there</option>
+        <option>Unfortunately, I cannot attend</option>
+      </select>
+      <input type="number" min="1" max="10" value="1" aria-label="Number of guests">
+      <textarea placeholder="Message for Shifana & Sabu"></textarea>
+      <button>CONFIRM RSVP</button>
+      <small id="thanks"></small>
+    </form>
+  </div>
 </section>
 </main>
 

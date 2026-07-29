@@ -52,57 +52,70 @@ if ("IntersectionObserver" in window) {
   reveals.forEach((el) => el.classList.add("show"));
 }
 
-/* ---------- Scratch card ---------- */
+/* ---------- Scratch heart ---------- */
 const canvas = document.getElementById("scratch");
 const wrap = document.getElementById("scratchWrap");
 const ctx = canvas.getContext("2d");
 let drawing = false;
+let scratchOpened = sessionStorage.getItem("weddingScratchOpened") === "1";
+let scratchDistance = 0;
+let lastScratchPoint = null;
+
+function openScratchHeart() {
+  if (scratchOpened) return;
+  scratchOpened = true;
+  sessionStorage.setItem("weddingScratchOpened", "1");
+  wrap.classList.add("scratch-open");
+}
 
 function setupScratch() {
+  if (scratchOpened) {
+    wrap.classList.add("scratch-open");
+    return;
+  }
   const r = wrap.getBoundingClientRect();
   const dpr = Math.min(devicePixelRatio || 1, 2);
-  canvas.width = r.width * dpr;
-  canvas.height = r.height * dpr;
+  canvas.width = Math.round(r.width * dpr);
+  canvas.height = Math.round(r.height * dpr);
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ctx.globalCompositeOperation = "source-over";
 
-  const g = ctx.createLinearGradient(0, 0, r.width, r.height);
-  g.addColorStop(0, "#7c2436");
-  g.addColorStop(0.5, "#c9a24d");
-  g.addColorStop(1, "#5c1626");
+  const g = ctx.createRadialGradient(r.width*.48,r.height*.38,10,r.width*.5,r.height*.5,r.width*.65);
+  g.addColorStop(0, "#8d2a3f");
+  g.addColorStop(.55, "#681829");
+  g.addColorStop(1, "#3e0b16");
   ctx.fillStyle = g;
-  ctx.fillRect(0, 0, r.width, r.height);
-
-  ctx.fillStyle = "#fbf7ef";
-  ctx.textAlign = "center";
-  ctx.font = "18px 'Cormorant Garamond'";
-  ctx.fillText("Scratch to reveal", r.width / 2, r.height / 2);
-
+  ctx.fillRect(0,0,r.width,r.height);
   ctx.globalCompositeOperation = "destination-out";
 }
 setupScratch();
 
 function scratch(e) {
-  if (!drawing) return;
+  if (!drawing || scratchOpened) return;
   const r = canvas.getBoundingClientRect();
   const p = (e.touches && e.touches[0]) || (e.changedTouches && e.changedTouches[0]) || e;
-  const x = p.clientX - r.left;
-  const y = p.clientY - r.top;
-  ctx.beginPath();
-  ctx.arc(x, y, 26, 0, Math.PI * 2);
-  ctx.fill();
-}
+  const x = p.clientX-r.left, y=p.clientY-r.top;
+  ctx.beginPath(); ctx.arc(x,y,30,0,Math.PI*2); ctx.fill();
 
-["pointerdown", "touchstart"].forEach((n) =>
-  canvas.addEventListener(n, (e) => { drawing = true; scratch(e); }, { passive: false })
-);
-["pointermove", "touchmove"].forEach((n) =>
-  canvas.addEventListener(n, (e) => { if (drawing) { e.preventDefault(); scratch(e); } }, { passive: false })
-);
-["pointerup", "pointercancel", "touchend"].forEach((n) =>
-  window.addEventListener(n, () => (drawing = false))
-);
-window.addEventListener("resize", () => setupScratch());
+  if (lastScratchPoint) scratchDistance += Math.hypot(x-lastScratchPoint.x,y-lastScratchPoint.y);
+  lastScratchPoint={x,y};
+
+  // A short swipe is enough; after opening it never redraws during this visit.
+  if (scratchDistance > Math.min(95, r.width*.27)) {
+    drawing=false;
+    setTimeout(openScratchHeart, 90);
+  }
+}
+["pointerdown","touchstart"].forEach(n=>canvas.addEventListener(n,e=>{
+  drawing=true; lastScratchPoint=null; scratch(e);
+},{passive:false}));
+["pointermove","touchmove"].forEach(n=>canvas.addEventListener(n,e=>{
+  if(drawing){e.preventDefault();scratch(e);}
+},{passive:false}));
+["pointerup","pointercancel","touchend"].forEach(n=>window.addEventListener(n,()=>{
+  drawing=false;lastScratchPoint=null;
+}));
+window.addEventListener("resize",()=>{ if(!scratchOpened) setupScratch(); });
 
 /* ---------- RSVP form ---------- */
 const form = document.getElementById("form");
@@ -151,3 +164,53 @@ musicToggle.addEventListener("click", async () => {
 });
 
 music.addEventListener("ended", () => setMusicUI(false));
+
+
+/* ---------- Seamless left-moving photo rotation ---------- */
+(() => {
+  const rail = document.querySelector(".photo-rail");
+  if (!rail || rail.dataset.loopReady === "1") return;
+  rail.dataset.loopReady = "1";
+
+  const originals = Array.from(rail.children);
+  if (originals.length < 2) return;
+
+  // Duplicate the full strip so the leftward movement can wrap invisibly.
+  originals.forEach(el => {
+    const clone = el.cloneNode(true);
+    clone.setAttribute("aria-hidden","true");
+    rail.appendChild(clone);
+  });
+
+  let paused = false;
+  let resumeTimer;
+  let last = performance.now();
+  const speed = 92; // px/sec, visibly moving but still elegant
+
+  function pauseThenResume(){
+    paused = true;
+    rail.classList.add("gallery-auto-paused");
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => {
+      paused = false;
+      rail.classList.remove("gallery-auto-paused");
+      last = performance.now();
+    }, 1600);
+  }
+
+  ["pointerdown","touchstart","wheel"].forEach(type =>
+    rail.addEventListener(type,pauseThenResume,{passive:true})
+  );
+
+  function frame(now){
+    const dt = Math.min((now-last)/1000,.05);
+    last = now;
+    if(!paused){
+      rail.scrollLeft += speed * dt;
+      const halfway = rail.scrollWidth / 2;
+      if(rail.scrollLeft >= halfway) rail.scrollLeft -= halfway;
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
