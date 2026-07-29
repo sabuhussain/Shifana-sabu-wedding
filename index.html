@@ -5,13 +5,30 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Shifana & Sabu | Wedding Invitation</title>
 <meta name="description" content="You're invited to celebrate the wedding of Shifana & Sabu on 27 December 2026.">
-<meta property="og:title" content="Shifana & Sabu — Wedding Invitation">
-<meta property="og:description" content="27 December 2026 • Open our invitation and celebrate with us.">
-<meta property="og:type" content="website"><meta property="og:image" content="share-preview.jpg">
-<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Italiana&family=Parisienne&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css"></head><body class="locked">
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#26382e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Shifana & Sabu">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Shifana & Sabu — Wedding Invitation">
+<meta property="og:description" content="You're invited to celebrate with Shifana & Sabu. Tap to open our wedding invitation.">
+<meta property="og:image" content="preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Shifana & Sabu wedding invitation">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Shifana & Sabu — Wedding Invitation">
+<meta name="twitter:description" content="Tap to open our wedding invitation.">
+<meta name="twitter:image" content="preview.jpg">
+
+</head><body class="locked">
 <div class="noise"></div>
 
 <section class="envelope-stage" id="envelopeStage">
@@ -131,4 +148,11 @@
 </audio>
 
 <footer><p class="script light">With love</p><h2>SHIFANA <i>&</i> SABU</h2><p>27 · DECEMBER · 2026</p></footer>
-<script src="script.js"></script></body></html>
+<script src="script.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+}
+</script>
+
+</body></html>
