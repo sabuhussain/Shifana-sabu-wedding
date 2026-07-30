@@ -1,0 +1,10 @@
+BACKGROUND MUSIC
+
+Place your MP3 in this folder and name it:
+
+wedding-music.mp3
+
+The music will start when the guest taps the gold wax seal to open the invitation.
+A floating music control appears at the bottom-right so guests can pause/play it.
+
+For faster mobile loading, use a compressed MP3 rather than a very large audio file.
