@@ -1,3 +1,24 @@
+
+/* Fresh page load: reset only the scratch/reveal state. */
+(function () {
+  try {
+    var keys = [];
+    for (var i = 0; i < localStorage.length; i++) keys.push(localStorage.key(i));
+    keys.forEach(function (k) {
+      if (k && /scratch|scratched|scratchComplete|heartOpen|heartReveal|dateReveal/i.test(k)) {
+        localStorage.removeItem(k);
+      }
+    });
+    keys = [];
+    for (var j = 0; j < sessionStorage.length; j++) keys.push(sessionStorage.key(j));
+    keys.forEach(function (k) {
+      if (k && /scratch|scratched|scratchComplete|heartOpen|heartReveal|dateReveal/i.test(k)) {
+        sessionStorage.removeItem(k);
+      }
+    });
+  } catch (e) {}
+})();
+
 /* ============================================================
    SHIFANA & SABU — WEDDING INVITATION
    Interaction layer: envelope, countdown, scroll reveal,

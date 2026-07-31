@@ -119,6 +119,88 @@ section a {
   clip-path:path("M160 48 C160 8 210 -14 248 14 C286 42 286 96 248 138 C222 166 186 202 160 288 C134 202 98 166 72 138 C34 96 34 42 72 14 C110 -14 160 8 160 48 Z");
 }
 </style>
+
+
+
+<style>
+.rsvp-count-field{
+  width:100%;
+  margin:24px 0 28px;
+  text-align:left;
+}
+.rsvp-count-field>label{
+  display:block;
+  margin:0 0 11px;
+  font-family:inherit;
+  font-size:clamp(16px,1.15vw,20px);
+  font-weight:600;
+  color:#241914;
+}
+.guest-stepper{
+  width:100%;
+  height:68px;
+  box-sizing:border-box;
+  display:grid;
+  grid-template-columns:68px 1fr 68px;
+  align-items:center;
+  overflow:hidden;
+  border:1.5px solid rgba(111,13,32,.55);
+  border-radius:18px;
+  background:rgba(255,255,255,.82);
+  box-shadow:0 10px 30px rgba(83,52,26,.08), inset 0 0 0 1px rgba(255,255,255,.75);
+  backdrop-filter:blur(8px);
+}
+.guest-step-btn{
+  height:100%;
+  border:0;
+  background:transparent;
+  color:#6f0d20;
+  font-family:Georgia,serif;
+  font-size:32px;
+  line-height:1;
+  cursor:pointer;
+  transition:background .2s ease,transform .12s ease;
+}
+.guest-step-btn:hover{background:rgba(111,13,32,.06)}
+.guest-step-btn:active{transform:scale(.92)}
+#rsvpCount{
+  width:100%;
+  height:100%;
+  box-sizing:border-box;
+  border:0;
+  border-left:1px solid rgba(111,13,32,.18);
+  border-right:1px solid rgba(111,13,32,.18);
+  outline:0;
+  background:transparent;
+  text-align:center;
+  color:#6f0d20;
+  font-family:Georgia,serif;
+  font-size:25px;
+  font-weight:600;
+  appearance:textfield;
+  -moz-appearance:textfield;
+}
+#rsvpCount::-webkit-inner-spin-button,
+#rsvpCount::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.guest-count-note{
+  margin-top:8px;
+  text-align:center;
+  font-size:13px;
+  letter-spacing:.08em;
+  color:rgba(70,56,47,.66);
+}
+#rsvpConfirm:disabled{
+  opacity:.42;
+  cursor:not-allowed;
+  filter:saturate(.65);
+}
+@media(max-width:600px){
+  .rsvp-count-field{margin:20px 0 24px}
+  .guest-stepper{height:60px;grid-template-columns:60px 1fr 60px;border-radius:15px}
+  .guest-step-btn{font-size:28px}
+  #rsvpCount{font-size:22px}
+}
+</style>
 </head><body class="locked">
 <div class="noise"></div>
 
@@ -170,8 +252,8 @@ section a {
 
 <section class="venues paper">
   <div class="section-head reveal"><p class="script">Where to be</p><h2>WEDDING & RECEPTION</h2></div>
-  <article class="venue reveal"><div class="photo venue-photo wedding-venue-photo" role="img" aria-label="Wedding venue"></div><div class="venue-text"><small>01 · WEDDING CEREMONY</small><h3>Thejus Auditorium</h3><p>Mahakavi Vailoppilli Rd, Palarivattom</p><p class="time">10:30 AM – 3:00 PM</p><a href="https://maps.app.goo.gl/H2sNPYkkvtFHhWma8" target="_blank" rel="noopener noreferrer">OPEN IN MAPS →</a></div></article>
-  <article class="venue reverse reveal"><div class="photo venue-photo reception-venue-photo" role="img" aria-label="Reception venue"></div><div class="venue-text"><small>02 · WEDDING RECEPTION</small><h3>Social St Joseph Church Parish Hall</h3><p>Rajagiri Rd, North Kalamassery, Kalamassery</p><p class="time">6:30 PM – 9:00 PM</p><a href="https://maps.app.goo.gl/BAvgj1hTr4nEwT9HA" target="_blank" rel="noopener noreferrer">OPEN IN MAPS →</a></div></article>
+  <article class="venue reveal"><div class="photo venue-photo wedding-venue-photo" role="img" aria-label="Wedding venue"></div><div class="venue-text"><small>01 · WEDDING CEREMONY</small><h3>Thejus Auditorium</h3><p>Mahakavi Vailoppilli Rd, Palarivattom</p><p class="time">10:30 AM – 3:00 PM</p><a href="https://www.google.com/maps/search/?api=1&query=Thejus%20Auditorium%2C%20Mahakavi%20Vailoppilli%20Rd%2C%20Palarivattom%2C%20Kochi" target="_blank" rel="noopener noreferrer">OPEN IN MAPS →</a></div></article>
+  <article class="venue reverse reveal"><div class="photo venue-photo reception-venue-photo" role="img" aria-label="Reception venue"></div><div class="venue-text"><small>02 · WEDDING RECEPTION</small><h3>Social St Joseph Church Parish Hall</h3><p>Rajagiri Rd, North Kalamassery, Kalamassery</p><p class="time">6:30 PM – 9:00 PM</p><a href="https://www.google.com/maps/search/?api=1&query=Social%20St%20Joseph%20Church%20Parish%20Hall%2C%20Rajagiri%20Rd%2C%20North%20Kalamassery%2C%20Kalamassery" target="_blank" rel="noopener noreferrer">OPEN IN MAPS →</a></div></article>
 </section>
 
 <section class="timeline timeline-curve reveal">
@@ -241,7 +323,7 @@ section a {
   <!-- STEP 1: Ask -->
   <div id="panel-ask" class="panel active">
     <h2 class="rsvp-heading">will you join us ?</h2>
-    <p class="rsvp-sub">Kindly Let Us Know By 26th Of June,<br />So We can save you a spot</p>
+    <p class="rsvp-sub">Kindly Let Us Know By 26th Of June,<br />So We Can Save You A Spot</p>
     <div class="rsvp-buttons">
       <button class="plaque-btn filled" onclick="newRsvpShowPanel('panel-name')">
         <span class="corner tl"></span><span class="corner tr"></span>
@@ -271,7 +353,19 @@ section a {
     <div style="max-width:380px;margin:0 auto;text-align:left;">
       <div class="field-label">Your name</div>
       <input id="guestName" class="field-input" type="text" placeholder="Enter your name" />
-      <button class="plaque-btn filled stacked-btn" onclick="newRsvpConfirmName()">
+
+<div class="rsvp-count-field">
+  <label for="rsvpCount">Number of guests</label>
+  <div class="guest-stepper" role="group" aria-label="Number of guests">
+    <button type="button" class="guest-step-btn" id="guestMinus" aria-label="Decrease guest count">−</button>
+    <input id="rsvpCount" name="guestCount" type="number" value="1" min="1" inputmode="numeric" aria-label="Guest count">
+    <button type="button" class="guest-step-btn" id="guestPlus" aria-label="Increase guest count">+</button>
+  </div>
+  <div class="guest-count-note">Including you</div>
+</div>
+
+
+      <button id="rsvpConfirm" class="plaque-btn filled stacked-btn" onclick="newRsvpConfirmName()">
         <span class="corner tl"></span><span class="corner tr"></span>
         <span class="corner bl"></span><span class="corner br"></span>
         Confirm
@@ -328,5 +422,62 @@ function newRsvpConfirmName(){
   if(t)t.textContent=name?"Thanks, "+name+" — you're on the list! We can't wait to celebrate with you.":"You're on the list — we can't wait to celebrate with you!";
   newRsvpShowPanel('panel-confirmed');
 }
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var nameInput = document.getElementById('guestName');
+  var confirmBtn = document.getElementById('rsvpConfirm');
+  if (!nameInput || !confirmBtn) return;
+
+  function updateRsvpConfirm() {
+    var valid = nameInput.value.trim().length > 0;
+    confirmBtn.disabled = !valid;
+    confirmBtn.setAttribute('aria-disabled', valid ? 'false' : 'true');
+  }
+
+  updateRsvpConfirm();
+  nameInput.addEventListener('input', updateRsvpConfirm);
+  nameInput.addEventListener('change', updateRsvpConfirm);
+
+  var form = confirmBtn.closest('form');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      if (!nameInput.value.trim()) {
+        e.preventDefault();
+        nameInput.focus();
+      }
+    });
+  }
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var count = document.getElementById('rsvpCount');
+  var minus = document.getElementById('guestMinus');
+  var plus = document.getElementById('guestPlus');
+  if (!count || !minus || !plus) return;
+
+  function cleanCount() {
+    var n = parseInt(count.value, 10);
+    if (!Number.isFinite(n) || n < 1) n = 1;
+    count.value = n;
+  }
+  minus.addEventListener('click', function () {
+    cleanCount();
+    count.value = Math.max(1, parseInt(count.value, 10) - 1);
+    count.dispatchEvent(new Event('change', {bubbles:true}));
+  });
+  plus.addEventListener('click', function () {
+    cleanCount();
+    count.value = parseInt(count.value, 10) + 1;
+    count.dispatchEvent(new Event('change', {bubbles:true}));
+  });
+  count.addEventListener('blur', cleanCount);
+  count.addEventListener('input', function () {
+    if (count.value !== '' && parseInt(count.value,10) < 1) count.value = 1;
+  });
+});
 </script>
 </body></html>
