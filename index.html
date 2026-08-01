@@ -201,6 +201,15 @@ section a {
   #rsvpCount{font-size:22px}
 }
 </style>
+
+<style id="hero-scroll-arrow-style">
+#heroScrollArrow{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);display:none;flex-direction:column;align-items:center;z-index:9999;pointer-events:none;transition:opacity .4s}
+#heroScrollArrow.show{display:flex}
+#heroScrollArrow.hide{opacity:0}
+#heroScrollArrow div{width:18px;height:18px;border-right:3px solid #D4AF37;border-bottom:3px solid #D4AF37;transform:rotate(45deg);animation:a 1.5s infinite}
+#heroScrollArrow div:nth-child(2){margin-top:-8px;animation-delay:.2s}
+@keyframes a{0%,100%{opacity:.2;transform:rotate(45deg)}50%{opacity:1;transform:rotate(45deg) translate(6px,6px)}}
+</style>
 </head><body class="locked">
 <div class="noise"></div>
 
@@ -478,6 +487,20 @@ document.addEventListener('DOMContentLoaded', function () {
   count.addEventListener('input', function () {
     if (count.value !== '' && parseInt(count.value,10) < 1) count.value = 1;
   });
+});
+</script>
+
+<div id="heroScrollArrow"><div></div><div></div></div>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+ const arrow=document.getElementById('heroScrollArrow');
+ function show(){arrow.classList.add('show');}
+ // Only show AFTER first user click/tap (Tap to Open)
+ document.addEventListener('click',()=>setTimeout(show,300),{once:true});
+ document.addEventListener('touchstart',()=>setTimeout(show,300),{once:true});
+ window.addEventListener('scroll',()=>{
+   if(window.scrollY>20) arrow.classList.add('hide');
+ },{passive:true});
 });
 </script>
 </body></html>
